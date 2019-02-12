@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AlexTolmachev/node-workerio.git"
+    "url": "git+https://github.com/AlexTolmachev/node-worker-squad.git"
   },
   "keywords": [
     "multi-threading",
@@ -34,12 +34,12 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AlexTolmachev/node-workerio/issues"
+    "url": "https://github.com/AlexTolmachev/node-worker-squad/issues"
   },
-  "homepage": "https://github.com/AlexTolmachev/node-workerio#readme",
+  "homepage": "https://github.com/AlexTolmachev/node-worker-squad#readme",
   "devDependencies": {
-    "eslint": "^5.13.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.16.0"
+    "eslint": "5.13.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-plugin-import": "2.16.0"
   }
 }
