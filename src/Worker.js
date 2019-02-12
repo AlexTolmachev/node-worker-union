@@ -11,11 +11,15 @@ if (!workerThreads.isMainThread) {
   } = workerThreads;
 
   module.exports = class Worker {
-    constructor() {
+    constructor(handler) {
       this.state = new Proxy({}, {
         get: (target, key) => Boolean(stateDataView.getUint8(bufferAccessMap.get(key))),
         set: (target, key, value) => stateDataView.setUint8(bufferAccessMap.get(key), value ? 1 : 0),
       });
+
+      if (handler !== undefined) {
+        this.setMessageHandler(handler);
+      }
     }
 
     emit(data) {

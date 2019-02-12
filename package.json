@@ -1,5 +1,5 @@
 {
-  "name": "worker-squad",
+  "name": "worker-union",
   "version": "1.0.0",
   "description": "🤼‍♂️ Package that makes it easy and convenient to use native worker_threads module",
   "engines": {
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AlexTolmachev/node-worker-squad.git"
+    "url": "git+https://github.com/AlexTolmachev/node-worker-union.git"
   },
   "keywords": [
     "multi-threading",
@@ -34,9 +34,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AlexTolmachev/node-worker-squad/issues"
+    "url": "https://github.com/AlexTolmachev/node-worker-union/issues"
   },
-  "homepage": "https://github.com/AlexTolmachev/node-worker-squad#readme",
+  "homepage": "https://github.com/AlexTolmachev/node-worker-union#readme",
   "devDependencies": {
     "eslint": "5.13.0",
     "eslint-config-airbnb-base": "13.1.0",
