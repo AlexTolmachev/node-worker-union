@@ -1,0 +1,45 @@
+{
+  "name": "worker-squad",
+  "version": "1.0.0",
+  "description": "🤼‍♂️ Package that makes it easy and convenient to use native worker_threads module",
+  "engines": {
+    "node": ">=10.5.0"
+  },
+  "main": "src/WorkerPool.js",
+  "scripts": {
+    "start": "node --experimental-worker src/index.mjs",
+    "test": "echo \"no tests\"",
+    "eslint": "eslint ./src --ext .js,.mjs",
+    "eslint:fix": "eslint ./src --ext .js --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexTolmachev/node-workerio.git"
+  },
+  "keywords": [
+    "multi-threading",
+    "multithreading",
+    "threads",
+    "workers",
+    "worker-pool",
+    "worker_threads",
+    "squad",
+    "worker",
+    "nodejs",
+    "node"
+  ],
+  "author": {
+    "name": "Alexander Tolmachev",
+    "email": "alextolmachevv@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlexTolmachev/node-workerio/issues"
+  },
+  "homepage": "https://github.com/AlexTolmachev/node-workerio#readme",
+  "devDependencies": {
+    "eslint": "^5.13.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0"
+  }
+}
