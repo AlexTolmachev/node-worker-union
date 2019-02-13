@@ -1,5 +1,14 @@
 # worker-union
-Package that makes it easy and convenient to use native **worker_threads** module.
+
+Every Node.JS developer is aware of the single-threaded nature of this platform where everything except your Javascript code runs in parallel.. But what if I tell you that it has become possible to run JS in parallel as well?
+
+The worker_threads module has been added to node.js v10.5.0, which allows javascript to be executed in separate threads within a single Node.JS process. Yes, no spawn, exec, fork, cluster and other parodies on multithreading!
+
+Worker-union allows you to take advantage of worker_threads, while eliminating the need to manually manage messaging, the number of threads, load balancing between them, and so on.
+
+Just write logic, the rest will be done by promise-powered worker-union 🤓
+
+Let’s jump into it?
 
 ## Install
 
@@ -36,6 +45,8 @@ const pool = new WorkerPool({
   count: 1,
 });
 
+pool.start();
+
 pool.send('ping').then(response => console.log(response));
 ```
 
@@ -70,11 +81,13 @@ And in this example it will be shown that the worker can send messages to the ma
 const path = require('path');
 const WorkerPool = require('worker-union');
 
-new WorkerPool({
+const pool = new WorkerPool({
   path: path.resolve('worker.js'),
   count: 1,
   eventHandler: message => console.log(`Recieved message from worker: ${message}`),
 });
+
+pool.start();
 
 // we doesn't send any data here
 ```
@@ -91,10 +104,10 @@ setInterval(() => worker.emit('Hello!'), 1000); // send 'Hello' to main thread e
 **Result:**
 ```bash
 node --experimental-worker index.js
-# -> Recieved message from worker: Hello!
-# -> Recieved message from worker: Hello!
-# -> Recieved message from worker: Hello!
-# -> Recieved message from worker: Hello!
+# -> Received message from worker: Hello!
+# -> Received message from worker: Hello!
+# -> Received message from worker: Hello!
+# -> Received message from worker: Hello!
 ```
 
 ## Advanced features

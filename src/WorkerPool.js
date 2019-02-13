@@ -17,7 +17,9 @@ module.exports = class WorkerPool {
   }) {
     this.workerFilePath = path;
 
+    this.autoAllocation = autoAllocation;
     this.messagesLimit = messagesLimit;
+    this.defaultWorkersCount = count;
     this.minWorkersCount = minCount;
     this.maxWorkersCount = autoAllocation ? maxCount : count;
 
@@ -27,12 +29,24 @@ module.exports = class WorkerPool {
     this.eventHandler = eventHandler;
 
     this.initializeState(state);
+  }
 
-    for (let i = 0; i < (autoAllocation ? minCount : count); i++) {
+  start() {
+    const workerLoopLimit = this.autoAllocation ? this.minWorkersCount : this.defaultWorkersCount;
+
+    for (let i = 0; i < workerLoopLimit; i++) {
       this.spawnWorker();
     }
 
-    if (autoAllocation) setInterval(this.manageWorkersCount.bind(this), 1000);
+    if (this.autoAllocation) setInterval(this.manageWorkersCount.bind(this), 1000);
+  }
+
+  reload() {
+    for (const [workerId] of this.workerMap) {
+      this.killWorker(workerId);
+    }
+
+    this.start();
   }
 
   initializeState(state) {
