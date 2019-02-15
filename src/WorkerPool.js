@@ -14,8 +14,10 @@ module.exports = class WorkerPool {
     count = cpuCoresCount,
     messagesLimit = 10,
     eventHandler = () => {},
+    initialData,
   }) {
     this.workerFilePath = path;
+    this.initialData = initialData;
 
     this.autoAllocation = autoAllocation;
     this.messagesLimit = messagesLimit;
@@ -107,10 +109,12 @@ module.exports = class WorkerPool {
 
       return;
     }
+
     const worker = new Worker(this.workerFilePath, {
       workerData: {
         bufferAccessMap: this.bufferAccessMap,
         stateDataView: this.stateDataView,
+        initialData: this.initialData,
       },
     });
 
@@ -201,16 +205,14 @@ module.exports = class WorkerPool {
       promiseMethods.reject = reject;
     });
 
-    setImmediate(() => {
-      const messageId = generateRandomString();
-      const workerId = this.getLeastLoadedWorkerId();
+    const messageId = generateRandomString();
+    const workerId = this.getLeastLoadedWorkerId();
 
-      this.messageMap.set(messageId, promiseMethods);
-      const workerData = this.workerMap.get(workerId);
+    this.messageMap.set(messageId, promiseMethods);
+    const workerData = this.workerMap.get(workerId);
 
-      workerData.worker.postMessage({ messageId, data });
-      workerData.messagesCount++;
-    });
+    workerData.worker.postMessage({ messageId, data });
+    workerData.messagesCount++;
 
     return promise;
   }

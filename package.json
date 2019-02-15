@@ -23,10 +23,11 @@
     "workers",
     "worker-pool",
     "worker_threads",
-    "squad",
+    "union",
     "worker",
     "nodejs",
-    "node"
+    "node",
+    "workerify"
   ],
   "author": {
     "name": "Alexander Tolmachev",

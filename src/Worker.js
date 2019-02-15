@@ -5,6 +5,7 @@ if (!workerThreads.isMainThread) {
     workerData: {
       bufferAccessMap,
       stateDataView,
+      initialData,
     },
     parentPort,
     threadId: workerId,
@@ -12,6 +13,8 @@ if (!workerThreads.isMainThread) {
 
   module.exports = class Worker {
     constructor(handler) {
+      this.initialData = initialData;
+
       this.state = new Proxy({}, {
         get: (target, key) => Boolean(stateDataView.getUint8(bufferAccessMap.get(key))),
         set: (target, key, value) => stateDataView.setUint8(bufferAccessMap.get(key), value ? 1 : 0),
@@ -49,7 +52,7 @@ if (!workerThreads.isMainThread) {
         try {
           await fn(data, resolve, reject);
         } catch (e) {
-          reject(e);
+          reject(e.message);
         }
       });
     }
