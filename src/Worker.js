@@ -25,6 +25,10 @@ if (!workerThreads.isMainThread) {
       }
     }
 
+    static getWorkerId() {
+      return workerId;
+    }
+
     emit(data) {
       parentPort.postMessage({
         isEvent: true,
