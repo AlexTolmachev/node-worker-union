@@ -14,6 +14,7 @@ if (!workerThreads.isMainThread) {
   module.exports = class Worker {
     constructor(handler) {
       this.initialData = initialData;
+      this.id = workerId;
 
       this.state = new Proxy({}, {
         get: (target, key) => Boolean(stateDataView.getUint8(bufferAccessMap.get(key))),
