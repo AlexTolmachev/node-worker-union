@@ -92,7 +92,11 @@ __worker.js__
 ```javascript
 const Worker = require('worker-union/worker');
 
-new Worker((message, resolve) => resolve('pong'));
+new Worker((message) => {
+  console.log('Received message:', message);
+
+  return 'pong';
+});
 ```
 
 __Result:__
