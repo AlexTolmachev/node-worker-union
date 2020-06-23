@@ -125,8 +125,6 @@ module.exports = class WorkerPool {
       messagesCount: 0,
       worker,
     });
-
-    console.log(`Worker ${worker.threadId} spawned`);
   }
 
   killWorker(workerId) {
@@ -139,8 +137,6 @@ module.exports = class WorkerPool {
     if (workerId !== undefined) {
       this.workerMap.get(workerId).worker.terminate();
       this.workerMap.delete(workerId);
-
-      console.log(`Worker ${workerId} terminated`);
 
       return;
     }

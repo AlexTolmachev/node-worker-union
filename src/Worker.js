@@ -55,7 +55,9 @@ if (!workerThreads.isMainThread) {
         });
 
         try {
-          await fn(data, resolve, reject);
+          const result = await fn(data);
+
+          resolve(result);
         } catch (e) {
           reject(e.message);
         }
