@@ -58,8 +58,9 @@ if (!workerThreads.isMainThread) {
           const result = await fn(data);
 
           resolve(result);
-        } catch (e) {
-          reject(e.message);
+        } catch ({ message, stack }) {
+          // errors are not clonable objects, so we do this
+          reject({ message, stack });
         }
       });
     }

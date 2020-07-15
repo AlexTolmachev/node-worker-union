@@ -160,8 +160,14 @@ module.exports = class WorkerPool {
 
     const { resolve, reject } = this.messageMap.get(messageId);
 
-    if (failed) reject(data);
-    else resolve(data);
+    if (failed) {
+      // errors are not clonable objects, so we do this
+      const e = new Error();
+      Object.assign(e, data);
+      reject(e);
+    } else {
+      resolve(data);
+    }
 
     const workerData = this.workerMap.get(workerId);
 

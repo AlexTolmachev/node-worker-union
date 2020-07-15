@@ -1,6 +1,6 @@
 {
   "name": "worker-union",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "🤼‍♂️ Package that makes it easy and convenient to use native worker_threads module",
   "engines": {
     "node": ">=10.5.0"
