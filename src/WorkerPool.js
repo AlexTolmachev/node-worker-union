@@ -199,7 +199,7 @@ module.exports = class WorkerPool {
     return chosenWorkerId || this.workerMap.keys().next().value;
   }
 
-  send(data) {
+  send(data, forcedWorkerId) {
     const promiseMethods = {};
 
     const promise = new Promise((resolve, reject) => {
@@ -208,7 +208,7 @@ module.exports = class WorkerPool {
     });
 
     const messageId = generateRandomString();
-    const workerId = this.getLeastLoadedWorkerId();
+    const workerId = forcedWorkerId || this.getLeastLoadedWorkerId();
 
     this.messageMap.set(messageId, promiseMethods);
     const workerData = this.workerMap.get(workerId);
@@ -216,6 +216,20 @@ module.exports = class WorkerPool {
     workerData.worker.postMessage({ messageId, data });
     workerData.messagesCount++;
 
-    return promise;
+    return { workerId, promise };
+  }
+
+  async broadcast(data, sequentially = false) {
+    let promises = [];
+
+    for (const [workerId] of this.workerMap) {
+      const { promise } = this.send(data, workerId);
+
+      if (sequentially) await promise;
+
+      promises.push(promise);
+    }
+
+    return Promise.all(promises);
   }
 };
